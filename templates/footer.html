@@ -1,0 +1,194 @@
+    <style>
+        @media (max-width: 600px) {
+            .space a {
+                font-size: 5.0rem;
+            }
+        }
+
+        footer {
+                position: relative;
+                width: 100%;
+                height: auto;
+                background-color: #ffffff;
+                border-top: 1px solid #d9d9d9;
+                padding-left: 0;
+                padding-right: 0;
+                margin: 0;
+                overflow-y: visible;
+                padding-bottom: 3%;
+            }
+
+            footer .footer-top {
+                display: flex;
+                position: relative;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 10%;
+                padding-left: 0;
+                padding-right: 0;
+                width: 100%;
+            }
+
+            footer .footer-bottom {
+                position: relative;
+                /* bottom: 0; */
+                width: 100%;
+                height: auto;
+                background-color: #ffffff;
+                border-top: 1px solid #d9d9d9;
+                padding-inline: 3.5%;
+                box-sizing: border-box;
+                /* overflow-y: visible; */
+            }
+
+            footer .footer-bottom .list {
+                display: flex;
+                flex-wrap: wrap;
+                padding-top: 3%;
+            }
+
+            footer .footer-bottom .list .list-item {
+                /* margin-right: 30px; */
+                width: fit-content;
+            }
+
+            footer .footer-bottom .footertext {
+                display: flex;
+                justify-content: left;
+                align-items: left;
+                padding: 1% 0;
+            }
+
+            footer .footer-bottom .footertext .toggle {
+                cursor: pointer;
+                color: #111;
+            }
+
+            footer .footer-bottom .footertext .toggle:active {
+                color: #fff;
+                transition: color 0.2s;
+            }
+
+            footer .footer-bottom .footertext .image-license {
+                cursor: pointer;
+                color: #111;
+            }
+
+            footer .footer-bottom .footertext .image-license:active {
+                color: #000;
+            }
+
+            .space {
+                margin-right: 1.5%;
+            }   
+
+            .space a {
+                color: inherit;
+                text-decoration: none;  /* 밑줄 제거 */
+                font-size: 1.0rem;
+            }
+
+            .flash {
+                animation: flash 0.5s
+            }
+
+            @keyframes flash {
+                from { fill: #fff; }
+                to { fill: inherit; }
+            }
+
+            .collapseInfo {
+                display: none;
+                fill: inherit;
+            }
+
+            .expandInfo {
+                display: inline-block;
+                fill: inherit;
+            }
+
+            footer .footer-bottom .footer-hidden {
+                position: absolute;
+                width: 93.5%;
+                box-sizing: border-box;
+                background-color: #ffffff;
+                border-top: 1px solid #d9d9d9;
+                padding-right: 0;
+                margin-right: 0;
+                display: none;
+                overflow-y: visible;
+                padding-top: 1%;
+                margin-top: 1%;
+                padding-bottom: 3%;
+            }
+
+            footer .footer-bottom .footer-hidden .content {
+                padding-top: 0.5%;
+            }
+
+            footer .footer-bottom .footer-hidden .content p {
+                font-size: 0.9rem;
+                color: #111;
+            }
+
+            footer .footer-bottom .footer-hidden .content a {
+                font-size: 0.9rem;
+                color: #111;
+                text-decoration: none;
+            }
+    </style>
+
+    <footer>
+        <div class="footer-top"></div>
+        <div class="footer-bottom">
+            <div class="list">
+                <span class="space"><a href="/">메인페이지</a></span>
+                <span class="space"><a href="/game/?game=turtle">바다거북 수프 게임</a></span>
+                <span class="space"><a href="/game/?game=escape">방탈출 게임</a></span>
+            </div>
+            <div class="footertext">
+                <span id="licenseToggle" class="toggle">
+                    <a style="display: inline;">Image License</a>
+                    <svg id="collapseInfo" xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 -960 960 960" width="15" class="collapseInfo">
+                        <path d="m296-80-56-56 240-240 240 240-56 56-184-184L296-80Zm184-504L240-824l56-56 184 184 184-184 56 56-240 240Z"/>
+                    </svg>
+                    <svg id="expandInfo" xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 -960 960 960" width="15" class="expandInfo">
+                        <path d="M480-80 240-320l57-57 183 183 183-183 57 57L480-80ZM298-584l-58-56 240-240 240 240-58 56-182-182-182 182Z"/>
+                    </svg>
+                    <div id="licenseInfo" class="footer-hidden">
+                        <span class="content" >
+                            <p><a href="https://kr.freepik.com/free-vector/marine-life-cute-element-animal-life-in-under-sea-underwater-animal-creature-and-turtle_29006288.htm#query=%EB%B0%94%EB%8B%A4%20%EA%B1%B0%EB%B6%81%EC%9D%B4&position=1&from_view=keyword&track=ais&uuid=45c608dd-e02d-40fc-812e-35bac4386d76">작가 jcomp</a> 출처 Freepik</p>
+                            <p><a href="https://kr.freepik.com/free-vector/turtles-and-fishes_27271884.htm#query=under%20the%20sea&position=8&from_view=search&track=ais&uuid=f74010ac-1537-4f5a-9e18-c86b10b4cb33">작가 gstudioimagen1</a> 출처 Freepik</p>
+                            <p><a href="https://kr.freepik.com/free-vector/wanted-modern-poster_8083746.htm#query=jail&position=2&from_view=search&track=sph&uuid=30aab0b3-9ed6-4b18-b169-6e9192e17f5e">작가 dgim-studio</a> 출처 Freepik</p>
+                            <p><a href="https://kr.freepik.com/free-vector/world-oceans-day-illustration-in-paper-style_13994893.htm#query=%EB%B0%94%EB%8B%A4%20%EA%B1%B0%EB%B6%81%EC%9D%B4&position=14&from_view=search&track=ais&uuid=37237012-66f5-49a5-8d79-48667b6c2457">Freepik</a></p>
+                            <p><a href='https://kor.pngtree.com/freepng/bullet-holes_108385.html'>의 PNG 이미지 kor.pngtree.com/</a></p>
+                            <p><a href="https://kr.freepik.com/free-photo/mixed-media-opened-door-montage_36190235.htm#page=8&query=escape%20room&position=45&from_view=search&track=ais&uuid=c574dc01-a942-4256-a045-67362b8d505d">Freepik</a></p>
+                            <!-- <p></p> -->
+                        </span>
+                    </div>
+                </span>
+          </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('licenseToggle').addEventListener('click', function() {
+            var licenseInfo = document.getElementById('licenseInfo');
+            var collapseInfo = document.getElementById('collapseInfo');
+            var collaspePath = collapseInfo.querySelector('path');
+            var expandInfo = document.getElementById('expandInfo');
+            var expandPath = expandInfo.querySelector('path');
+
+            if (licenseInfo.style.display === 'none') {
+                licenseInfo.style.display = 'block';
+                expandPath.classList.add('flash');
+                expandInfo.style.display = 'none';
+                collapseInfo.style.display = 'inline-block';
+            } else {
+                licenseInfo.style.display = 'none';
+                collaspePath.classList.add('flash');
+                collapseInfo.style.display = 'none';
+                expandInfo.style.display = 'inline-block';
+            }
+        });
+    </script>

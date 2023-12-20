@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" scroll-behavior="smooth">
+{% load static %}
+    <head>
+        <style>
+            /* @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap'); */
+        </style>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'project-style.css' %}">
+        <link rel="icon" href="{% static 'wizardbook.jpg' %}"/>
+        <link rel="apple-touch-icon" href="{% static 'wizardbook.jpg' %}"/>
+        <title>자연사</title>
+    </head>
+
+    <body>
+        {% block content %}
+
+        {% endblock content %}    
+        {% include "footer.html" %}
+    </body>
+</html>

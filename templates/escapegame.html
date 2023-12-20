@@ -1,0 +1,168 @@
+{% extends 'project-base.html' %}
+{% block content %}
+{% load static %}
+    <div style="position: fixed; right: 0; top: 0; z-index: 2;">
+        <audio controls autoplay loop id="audio_player">
+        </audio>
+        <select id="audio_select" style="position: fixed; right: 0; margin-top: 3.5%;">
+            <option value=""></option>
+        </select>
+    </div>
+    
+    <div style="display: flex; width: 100vw; height: 100vh;">
+        <img src="{% static 'escapebg.png' %}" alt="turtlesoupstart" class="page">
+        <div></div>
+        <a href="#sidebar"></a>
+            <img src="{% static 'wizardbook.gif' %}" alt="logo" id="logo" style="scale: 20%; display: flex; position: absolute; transform: translate(-177%, -185%); border: none; border-radius: 30px;">
+            <h1 class="gametitle" style="color: #260612;">방탈출 게임</h1>
+        </a>
+
+        <div id="sidebar">
+            <div class="sidebar-content">
+                <a href="/">메인페이지</a>
+                <a href="/game/?game=turtle">바다거북 수프 게임</a>
+                <a href="/game/?game=escape">방탈출 게임</a>
+            </div>
+        </div>
+
+        <div id="sidecontent" style="height: 60%;">
+            <div class="output_container" id="output_container" style="background-color: rgba(38, 6, 18, 0.3);">
+                <div>
+                    <!-- <p>{{user_input}}</p> -->
+                    {% for threadmessage in Data %}
+                        {% if threadmessage.role == "assistant" %}
+                            <div class="host-container">
+                                <span class="host-text" style="background-color: #260612;">{{ threadmessage.content }}</span><br>
+                            </div>
+                        {% elif threadmessage.role == "user" %}
+                            <div class="user-container">
+                                <span class="user-text" style="background-color: #7E8C61;"> {{ threadmessage.content }}</span><br>
+                            </div>
+                        {% endif %}
+                        <!-- {{threadmessage}}
+                        <br> -->
+                    {% endfor %}
+                    <!-- {{New}} -->
+                </div>
+            </div>
+        
+            <form id="inputForm" method="post" action="{% url 'escapegame' %}" autocomplete="off" class="inputform" onsubmit="showLoading()">
+                {% csrf_token %}
+                <textarea name="user_input" id="user_input" rows="5" cols="100" required style="color: #260612; font-family: SKYBORI;"></textarea>
+                <button id="send_button" type="submit" style="all:unset; width: 5vw; height: 8.5vh; border-radius: 30%; position: relative; z-index: 2; left: -10%;">
+                    <img src="{% static 'rabbitwhite.gif' %}" alt="send" style="scale: 35%; transform: translate(-115%, -160%); position: absolute;">
+                </button>
+            </form>
+        </div>
+        
+        <script>
+            function showLoading() {
+                    document.getElementById('loading').style.display = 'block';
+                }
+            
+            // 오디오 파일의 URL을 배열에 추가합니다.
+            var escapeaudioFiles = [
+                {name: "Hide and Seek", path: "{% static 'escape/hideandseek_mr_orgelvr.wav' %}"},
+                {name: "Harry Potter", path: "{% static 'escape/harrypotter.wav' %}"},
+                {name: "Alice's Theme", path: "{% static 'escape/alicestheme.wav' %}"},
+            ];
+
+            window.onload = function() {
+                // 배열에서 랜덤으로 URL을 선택합니다.
+                var randomIndex = Math.floor(Math.random() * escapeaudioFiles.length);
+                var randomAudioFile = escapeaudioFiles[randomIndex];
+
+                // 오디오 플레이어의 source를 랜덤으로 선택한 URL로 설정합니다.
+                var audioPlayer = document.getElementById('audio_player');
+
+                // audioSelect.value = randomAudioFile.name;
+                audioPlayer.src = randomAudioFile.path;
+                // 오디오를 재생합니다.
+                audioPlayer.play();
+
+                var audioSelect = document.getElementById('audio_select');
+                
+                for (var i = 0; i < escapeaudioFiles.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = escapeaudioFiles[i].path;
+                    option.text = escapeaudioFiles[i].name;
+                    audioSelect.appendChild(option);
+                }
+                
+                audioSelect.onchange = function() {
+                    audioPlayer.src = audioSelect.value;
+                    audioPlayer.play();
+                }
+
+                audioPlayer.volume = 0.1;
+
+                
+
+                var container = document.getElementById("output_container");
+                container.scrollTop = container.scrollHeight;
+
+                window.location.hash = '';
+            };
+
+            document.getElementById('inputForm').addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();  // Enter 키의 기본 동작을 막음
+                    if (event.shiftKey) {
+                        this.value += "\n";
+                    } else {
+                        document.getElementById('loading').style.display = 'block';
+                        this.submit();  // form을 제출
+                    }
+                }
+            });
+
+            var logo = document.getElementById('logo');
+            var sidebar = document.getElementById('sidebar');
+            var outputContainer = document.getElementById('output_container');
+            var inputForm = document.getElementById('inputForm');
+
+            logo.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                if (window.location.hash == '#sidebar') {
+                    window.location.hash = '';
+                    outputContainer.style.width = '80%';
+                    outputContainer.style.left = '5%';
+                    inputForm.style.left = '50%';
+                } else {
+                    window.location.hash = '#sidebar';
+                    outputContainer.style.width = '75%';
+                    outputContainer.style.left = '16%';
+                    inputForm.style.left = '58%';
+                }
+            });
+
+            window.onclick = function(event) {
+                if (event.target != logo && event.target != sidebar) {
+                    window.location.hash = '';
+                    outputContainer.style.width = '80%';
+                    outputContainer.style.left = '5%';
+                    inputForm.style.left = '50%';
+                }
+            }
+
+            // document.getElementById('logo').addEventListener('click', function() {
+            //     var sidebar = document.getElementById('sidebar');
+            //     var content = document.getElementById('content');
+
+            //     if (window.location.hash == '#sidebar') {
+            //         window.location.hash = '';
+            //         // sidebar.style.display = 'none';
+            //     } else {
+            //         // sidebar.style.display = 'block';
+            //         window.location.hash = '#sidebar';
+            //     }
+            // });
+        </script>
+
+        <div id="loading" style="display:none;">
+            {% load static %}
+            <img src="{% static 'walking-dog.gif' %}" alt="Loading..." style="size: 50%; z-index: 2; border: none; border-radius: 30px;"/>
+        </div>
+    </div>
+{% endblock content %}

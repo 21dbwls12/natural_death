@@ -1,0 +1,17 @@
+{% extends 'project-base.html' %}
+{% block content %}
+    <div style="display: flex; height: 100vh; position: relative;">
+        <a href="/game/?game=turtle" class="half" style="align-items: center;">
+            <img src="static/underthesea.jpg" alt="Image for turtlesoup game" style="width: 100%; height: 100%; border: 5px solid #6ACED9; box-sizing: border-box;">
+            <img src="static/turtle.png" alt="Image for turtlesoup game" class="rotating-image" style="position: absolute; top: 0; left: 0; z-index: 1;">
+            <img src="static/turtle.png" alt="Image for turtlesoup game" class="rotating-image-opposite" style="position: absolute; top: 0; left: 0; z-index: 1;">
+        </a>
+
+        <a href="/game/?game=escape" class="half">
+            <img src="static/roomescape.jpg" alt="Image for escape game" style="width: 100%; height: 100%; border: 5px solid #260612; box-sizing: border-box;">
+            <img src="static/guneffect2.png" alt="Image for escape game" class="ad-image" style="z-index: 1; scale: 30%; position: absolute; top: 30%; left: 20%;">
+            <img src="static/guneffect.png" alt="Image for escape game" class="ad-image" style="z-index: 1; scale: 100%; position: absolute; right: 30%;">
+            <!-- <img src="static/skull.png" alt="Image for escape game" class="ad-image" style="z-index: 1; position: absolute; top: 0%; left: 0;"> -->
+        </a>
+    </div>
+{% endblock content %}

@@ -1,0 +1,224 @@
+{% extends 'project-base.html' %}
+{% block content %}
+{% load static %}
+<!-- <body data-game-type="{% if gamect == 'escape' %}escape{% else %}turtle{% endif %}"> -->
+    <div style="position: fixed; right: 0; top: 0; z-index: 3;">
+        <audio controls autoplay loop id="audio_player">
+            <!-- <source src = "{% static 'underthesea.wav' %}" type="audio/wav"> -->
+        </audio>
+        <select id="audio_select" style="position: fixed; right: 0; margin-top: 3.5%;">
+            <option value=""></option>
+        </select>
+    </div>
+
+    {% if gamect == 'turtle' %}
+        <div id="turtlegame" style="font-family: YeongdeokSea, YeongdeokSeaWoff; display: flex; width: 100vw; height: 100vh; position: relative;">
+            <img src="{% static 'startturtle.jpg' %}" alt="turtlesoupstart" class="page">
+            <form action="{% url 'gamestart' %}" method="post" id="startturtle">
+                {% csrf_token %}
+                <input type="hidden" name="user_input" value="turtle">
+                <!-- <input type="submit" value="게임 시작" class="turtlebutton" style="position: absolute; bottom: 10%; left: 10%; font-family: YeongdeokSea;"> -->
+                <button id="turtlebutton" type="submit" name="action" value="start" class="turtlebutton" style="position: absolute; bottom: 30%; left: 10%; font-family: YeongdeokSea;">
+                    <img id="turtlebuttonwave" src="{% static 'wave.gif' %}" alt="wave for button" style="object-fit: crop;">
+                    <span id="turtlebuttontext">게임 시작</span>
+                </button>
+                <button id="continueturtlebutton" type="submit" name="action" value="continue" class="turtlebutton" style="position: absolute; bottom: 10%; left: 10%; font-family: YeongdeokSea;">
+                    <img id="continueturtlebuttonwave" src="{% static 'wave.gif' %}" alt="wave for button" style="object-fit: crop;">
+                    <span id="turtlebuttontext">이어하기</span>
+                </button>
+                <input type="text" id="username" name="username" class="text" required style="font-family: YeongdeokSea; transform: translate(-298%, 0%);">
+            </form>
+
+            <div class="description">
+                <h1 style="text-align: center; color: aliceblue;">바다거북 수프 게임</h1>
+                <br>
+                <h3 style="color: aliceblue;">주어진 문제에 질문을 하면 AI가 답을 줍니다.<br>그 답을 종합해서 스스로 답을 찾아가는 게임입니다.</h3>
+                <br>
+                <h3 style="color: aliceblue;">게임 방법</h3>
+                <div style="font-weight: 400; font-size: 1.1rem; color:aliceblue;">
+                    <p>1. 시작하려면 '시작', '안녕'등의 문구를 입력해주세요.</p>
+                    <p>2. AI가 문제를 보내줍니다.</p>
+                    <p>3. 문제를 보고 질문을 하세요.</p>
+                    <p>4. 질문에 대한 답으로 문제에 대한 정답을 추론하세요.</p>
+                </div>
+                <br>
+                <h3 style="color: aliceblue;">주의 사항</h3>
+                <div style="font-weight: 400; font-size: 1.1rem; color:aliceblue; display: flex; flex-direction: column; align-items: center;  justify-content: center;">
+                    <div style="display: flex; flex-direction: row;">
+                        <a>👹</a>
+                        <div>로딩시간이 길어요. 한 번 응답을 보낸 후 로딩 중일때 한 번더 엔터를 치거나 전송버튼을 누르면 오류가 납니다. 천천히 기다려주세요. 만약 오류가 났다면 게임 선택 화면으로 돌아가 이어하기 버튼을 눌러주세요.</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>👹</a>
+                        <div>게임 시작 버튼을 누르면 모든 내용이 초기화 됩니다. 이어서 하고 싶다면 이어하기 버튼을 눌러주세요.</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>👹</a>
+                        <div>드래그해서 다른 게임도 시도해보세요. 다 재미있는 게임이랍니다!</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>👹</a>
+                        <div>헌재는 노트북 모니터에 15인치에 가장 최적화되어있습니다. 노트북 전체화면 권장드립니다. 다른 화면 크기에는 추후에 최적화시킬 예정입니다. 지금 얼마나 별로인지 확인하려는 당신! 멈추세욧! 그거 아니에요! 돌아가주세요~</div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    {% elif gamect == 'escape' %}
+        <div id="escapegame" style="display: flex; width: 100vw; height: 100vh; position: relative;" >
+            <img src="{% static 'escapebg.png' %}" alt="turtlesoupstart" class="page">
+            <form action="{% url 'gamestart' %}" method="post" id="startescape">
+                {% csrf_token %}
+                <input type="hidden" name="user_input" value="escape">
+                <!-- <input type="submit" value="게임 시작" class="turtlebutton" style="position: absolute; bottom: 10%; left: 10%; font-family: YeongdeokSea;"> -->
+                <button id="escapebutton" type="submit" name="action" value="start" class="escapebutton" style="position: absolute; bottom: 30%; right: 10%; font-family: SKYBORI;">
+                    <img id="escapebuttonwave" src="{% static 'cateye.gif' %}" alt="wave for button" style="object-fit: crop;">
+                    <span id="escapebuttontext">게임 시작</span>
+                </button>
+                <button id="continueescapebutton" type="submit" name="action" value="continue" class="escapebutton" style="position: absolute; bottom: 10%; right: 10%; font-family: SKYBORI;">
+                    <img id="continueescapebuttonwave" src="{% static 'cateye.gif' %}" alt="wave for button" style="object-fit: crop;">
+                    <span id="escapebuttontext">이어하기</span>
+                </button>
+                <input type="text" id="username" name="username" class="text" required style="color: #260612">
+            </form>
+
+            <div class="escapedescription" style="background-color: #260612;">
+                <h1 style="text-align: center; color: aliceblue;">방탈출 게임</h1>
+                <br>
+                <h3 style="color: aliceblue;">테마만 정하세요! 그다음은 AI가 알아서 만들어준다구요!<br>주어진 공간을 탈출하세요.</h3>
+                <br>
+                <h3 style="color: aliceblue;">게임 방법</h3>
+                <div style="font-weight: 400; font-size: 1.1rem; color:aliceblue;">
+                    <p>1. 시작하려면 '시작', '안녕'등의 문구를 입력해주세요.</p>
+                    <p>2. 테마는 텍스트형식으로 제시해주세요. 잘 모르겠다면 AI가 추천해드립니다. 난이도는 1~5안의 숫자 형식으로 제시해주세요.</p>
+                    <p>3. AI가 진행하는 게임을 따라가세요. 행동을 직접 적는 방식과 AI가 제시한 선택지를 선택하는 방식 2가지 중 하나입니다.</p>
+                    <p>4. 탐험하거나 퀴즈를 풀고 얻은 힌트들을 이용해서 탈출하세요.</p>
+                </div>
+                <br>
+                <h3 style="color: aliceblue;">주의 사항</h3>
+                <div style="font-weight: 400; font-size: 1.1rem; color:aliceblue; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="display: flex; flex-direction: row;">
+                        <a>🧟</a>
+                        <div>로딩시간이 길어요. 한 번 응답을 보낸 후 로딩 중일때 한 번더 엔터를 치거나 전송버튼을 누르면 오류가 납니다. 천천히 기다려주세요. 만약 오류가 났다면 게임 선택 화면으로 돌아가 이어하기 버튼을 눌러주세요.</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>🧟</a>
+                        <div>게임 시작 버튼을 누르면 모든 내용이 초기화 됩니다. 이어서 하고 싶다면 이어하기 버튼을 눌러주세요.</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>🧟</a>
+                        <div>드래그해서 다른 게임도 시도해보세요. 다 재미있는 게임이랍니다!</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row;">
+                        <a>🧟</a>
+                        <div>헌재는 노트북 모니터에 15인치에 가장 최적화되어있습니다. 노트북 전체화면 권장드립니다. 다른 화면 크기에는 추후에 최적화시킬 예정입니다. 지금 얼마나 별로인지 확인하려는 당신! 멈추세욧! 그거 아니에요! 돌아가주세요~</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <script>
+        // 오디오 파일의 URL을 배열에 추가합니다.
+        var escapeaudioFiles = [
+            {name: "Hide and Seek", path: "{% static 'escape/hideandseek_mr_orgelvr.wav' %}"},
+            {name: "Harry Potter", path: "{% static 'escape/harrypotter.wav' %}"},
+            {name: "Alice's Theme", path: "{% static 'escape/alicestheme.wav' %}"},
+        ];
+        var turtleaudioFiles = [
+            {name: "Binks' Brew", path: "{% static 'turtle/onepieceost.wav' %}"},
+            {name: "Under the sea", path: "{% static 'turtle/underthesea.wav' %}"},
+            {name: "Rolling Down to Old Maui", path: "{% static 'turtle/rollingdowntooldmaui.wav' %}"},
+        ];
+        
+        // if (gameType == 'escape') {
+        //     var audioFiles = escapeaudioFiles;
+        // } else if (gameType == 'turtle') {
+        //     var audioFiles = turtleaudioFiles;
+        // }
+
+        window.onload = function() {
+            // 배열에서 랜덤으로 URL을 선택합니다.
+            var randomIndex = Math.floor(Math.random() * audioFiles.length);
+            var randomAudioFile = audioFiles[randomIndex];
+
+            // 오디오 플레이어의 source를 랜덤으로 선택한 URL로 설정합니다.
+            var audioPlayer = document.getElementById('audio_player');
+
+            // audioSelect.value = randomAudioFile.name;
+            audioPlayer.src = randomAudioFile.path;
+            // 오디오를 재생합니다.
+            audioPlayer.play();
+
+            var audioSelect = document.getElementById('audio_select');
+            
+            for (var i = 0; i < audioFiles.length; i++) {
+                var option = document.createElement('option');
+                option.value = audioFiles[i].path;
+                option.text = audioFiles[i].name;
+                audioSelect.appendChild(option);
+            }
+            
+            audioSelect.onchange = function() {
+                audioPlayer.src = audioSelect.value;
+                audioPlayer.play();
+            }
+
+            audioPlayer.volume = 0.1;
+        };
+
+        // // 드래그 시작 위치
+        // let startX = 0;
+        // // 드래그 중인지 여부
+        // let isDragging = false;
+        // const turtlegame = document.getElementById('turtlegame');
+        // const escapegame = document.getElementById('escapegame');
+
+        // document.addEventListener('mousedown', (e) => {
+        //     // 마우스 버튼 누른 위치 저장
+        //     startX = e.pageX;
+        //     // 드래그 시작
+        //     isDragging = true;
+        // });
+
+        // document.addEventListener('mousemove', (e) => {
+        //     // 드래그 중이 아니면 아무것도 하지 않음
+        //     if (!isDragging) return;
+            
+        //     // 마우스 버튼을 누른 위치와 현재 위치의 차이 계산
+        //     const distance = e.pageX - startX;
+
+        //     // 드래그 방향에 따라 화면 이동
+        //     turtlegame.style.transform = `translateX(${distance}px)`;
+        //     escapegame.style.transform = `translateX(${distance}px)`;
+        // });
+
+        // document.addEventListener('mouseup', (e) => {
+        //     // 드래그 종료
+        //     isDragging = false;
+
+        //     // 마우스 버튼을 누른 위치와 뗀 위치의 차이 계산
+        //     const distance = e.pageX - startX;
+        //     // 화면 너비의 절반 계산
+        //     const halfWindowWidth = window.innerWidth / 2;
+
+        //     // 드래그 거리가 화면 너비의 절반 이상인 경우
+        //     if (Math.abs(distance) > halfWindowWidth) {
+        //         // 왼쪽으로 드래그 한 경우
+        //         if (distance < 0) {
+        //             turtlegame.style.transform = `translateX(-100%)`;
+        //             escapegame.style.transform = `translateX(0)`;
+        //         // 오른쪽으로 드래그 한 경우
+        //         } else if (distance > 0) {
+        //             turtlegame.style.transform = `translateX(0)`;
+        //             escapegame.style.transform = `translateX(100%)`;
+        //         }
+        //     // 드래그 거리가 화면 너비의 절반 미만인 경우
+        //     } else {
+        //         turtlegame.style.transform = `translateX(0)`;
+        //         escapegame.style.transform = `translateX(0)`;
+        //     }
+        // });
+    </script>    
+<!-- </body> -->
+{% endblock content %}
